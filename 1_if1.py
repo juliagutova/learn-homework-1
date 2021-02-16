@@ -31,8 +31,8 @@ def main():
             return("Пользователь учиться в ВУЗе")
         else:
             return("Пользователь работает")
-      user_age = activity(age)
-      print(user_age)
+    user_age = activity(age)
+    print(user_age)
 
 if __name__ == "__main__":
     main()
