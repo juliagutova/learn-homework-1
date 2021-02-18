@@ -14,7 +14,17 @@
   и выводя на экран результаты
 
 """
-
+def string_length(string1, string2):
+    lenstr1 = len(string1)
+    lenstr2 = len(string2)
+    if string1 == string2 or string1 < string2:
+        return('1')
+    elif string1 > string2:
+        return('2')
+    elif string2 == "learn":
+        return('3')
+    else:
+        return('0')
 def main():
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
@@ -23,17 +33,6 @@ def main():
     string1 = str(input("Введите сообщение: "))
     string2 = str(input("Введите сообщение: "))
 
-    def string_length(string1, string2):
-        str1 = len(string1)
-        str2 = len(string2)
-        if string1 == string2:
-            return('1')
-        elif string1 != string2 and string1 > string2:
-            return('2')
-        elif string1 != string2 and string2 == "learn":
-            return('3')
-        else:
-            return('0')
     print(string_length(string1, string2))
     
 if __name__ == "__main__":
