@@ -11,11 +11,33 @@
 """
 
 def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+
+# Создаем список словарей
+    school_info = [
+        {'school_class': '4a', 'scores': [3,4,4,5,2]},
+        {'school_class': '5b', 'scores': [4,4,4,3,5]},
+        {'school_class': '2a', 'scores': [5,4,5,5,2]},
+        {'school_class': '4b', 'scores': [5,4,3,5,5]},
+    ]
+  
+# Фунуцмя которая считает среднее арифметическое по каждому классу
+    def get_avg_classes(class_info):
+        scores = class_info['scores']  # обозначение списока в словаре 
+        numbers = len(class_info['scores']) # вычисление длины списка оценок(кол-во оценок)
+        summ_scores = (sum(scores)) # сумма оценок в списке
+        avg_scores = summ_scores / numbers # Вычесление средней оценки для каждого класса
+        return avg_scores # возвращаем значение
     
+    all_scores = [] # создаем пустой буфер(список) для помещения туда списка всех оценок всех классов
+    avg_scores = [] # создаем пустой буфер(список) для помещения туда списка средних оценок 
+
+# цикл для перебора оценок с помощью функции
+    for class_info in school_info:
+        avg_scores.append(get_avg_classes(class_info)) # перебор аргументов функции и добавление в один список всех средних значений по классам
+        all_scores.extend(class_info['scores']) # перебор и добавление значений списка в один список 
+    print(sum(all_scores) / len(all_scores)) # вчисление и вывод среднего по всем классам
+    print(avg_scores) # вывод среднего по каждому классу
+
+
 if __name__ == "__main__":
     main()
