@@ -34,7 +34,7 @@ PROXY = {                              # настройки прокси для 
 
 def greet_user(update, context): # функция которая приветствует пользователя
     print('Вызван /start')      # вызывается если пользователь вводит \start 
-    update.message.reply_text('Введите название планеты на английском') # - отвечает пользователю отправляя сообщение через telegram
+    update.message.reply_text() # - отвечает пользователю отправляя сообщение через telegram
     
 
 def talk_to_me(update, context):    # функция которая отвечает пользователю эхом
@@ -42,34 +42,48 @@ def talk_to_me(update, context):    # функция которая отвеча
     print(user_text)                
     update.message.reply_text(text) 
 
-planets = {                         # словарь с названием планет в ключе и с ссылками на созвездия в значении
-    'Mercury': ephem.Mercury(),
-    'Venus': ephem.Venus(),
-    'Mars': ephem.Mars(),
-    'Jupiter': ephem.Jupiter(),
-    'Saturn': ephem.Saturn(),
-    'Uranus': ephem.Uranus(),
-    'Neptune': ephem.Neptune(),
-    'Pluto': ephem.Pluto(),
-    }
+
 def ask_planet(update, context): # функция которая должна отвечать пользователю если он ввел название планеты
     user_text = update.message.text   # получаем от пользователя сообщение
-    print(user_text)
-    user_text = user_text.split(' ')
-    print(user_text)
-    date = datetime.datetime.now()     # создание переменной, которая ссылается на модуль datetime и обозначает время сейчас
-    while True:                        # цикл, который должен запускаться если пол-тель ввел название планеты которая есть в словаре
-        if user_text in planets.values:       # если текст пользователя есть в списки планет
-          planet_obj = planets[planet_name] # ссылаемся на значение в словаре
-          #planet_name = 'Mars'        
-          planet_obj.compute(date)     # добавляем значению в словаре дату(сегодня)
-          print(ephem.constellation(planet_obj)) # отвечаем пользователю
+    user_text = user_text.split(' ')  # делаем список из сообщения пользователя
+
+    if user_text[0] == "\planet":  #Перебираем планеты
+        date = datetime.datetime(now)  # обозначили что нужна сегодняшняя дата
+        if user_text == 'Mars':     # если тест от пользователя приравнен к слову Mars
+            mars = ephem.Mars(date)  # то в переменную mars кладется расположение планеты сегодня
+            update.message.reply_text() # выводится сообщение пользователю о созвездии
+        if user_text == 'Venus':
+            venus = ephem.Venus(date)
+            update.message.reply_text(text)
+        if user_text == 'Mercury':
+            mercury = ephem.Mercury(date)
+            update.message.reply_text(text)
+        if user_text == 'Jupiter':
+            jupiter = ephem.Jupiter(date)
+            update.message.reply_text(text)
+        if user_text == 'Saturn':
+            saturn = ephem.Saturn(date)
+            update.message.reply_text(text)
+        if user_text == 'Uranus':
+            uranus = ephem.Uranus(date)
+            update.message.reply_text(text)
+        if user_text == 'Neptune':
+            neptune = ephem.Neptune(date)
+            update.message.reply_text(text)
+        if user_text == 'Pluto':
+            pluto = ephem.Pluto(date)
+            update.message.reply_text(text)
+        if user_text == 'Mars':
+            mars = ephem.Mars(date)
+            update.message.reply_text(text)
+            
+#print(ephem.constellation(planet_obj)) # отвечаем пользователю
 
 def main():                            # функция которая отвечает за работу бота
     mybot = Updater("1651502970:AAGSevR0qEcJqPh523rv-10fxT-ayFS8mL0", request_kwargs=PROXY, use_context=True) # ключ, настройки прокси
 
     dp = mybot.dispatcher # функция подключения к telegram
-    dp.add_handler(CommandHandler("start", greet_user, ask_planet)) #вызов функции
+    dp.add_handler(CommandHandler("start", "planet", greet_user, ask_planet)) #вызов функции
     dp.add_handler(MessageHandler(Filters.text, talk_to_me)) # бот реагирует только на текстовые сообщения
 
     mybot.start_polling()
