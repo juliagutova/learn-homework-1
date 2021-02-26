@@ -51,39 +51,36 @@ def ask_planet(update, context): # функция которая должна о
         date = datetime.datetime(now)  # обозначили что нужна сегодняшняя дата
         if user_text == 'Mars':     # если тест от пользователя приравнен к слову Mars
             mars = ephem.Mars(date)  # то в переменную mars кладется расположение планеты сегодня
-            update.message.reply_text() # выводится сообщение пользователю о созвездии
+            update.message.reply_text(ephem.constellation(mars)) # выводится сообщение пользователю о созвездии
         if user_text == 'Venus':
             venus = ephem.Venus(date)
-            update.message.reply_text(text)
+            update.message.reply_text(ephem.constellation(venus))
         if user_text == 'Mercury':
             mercury = ephem.Mercury(date)
-            update.message.reply_text(text)
+            update.message.reply_text(ephem.constellation(mercury))
         if user_text == 'Jupiter':
             jupiter = ephem.Jupiter(date)
-            update.message.reply_text(text)
+            update.message.reply_text(ephem.constellation(jupiter))
         if user_text == 'Saturn':
             saturn = ephem.Saturn(date)
-            update.message.reply_text(text)
+            update.message.reply_text(ephem.constellation(saturn))
         if user_text == 'Uranus':
             uranus = ephem.Uranus(date)
-            update.message.reply_text(text)
+            update.message.reply_text(ephem.constellation(uranus))
         if user_text == 'Neptune':
             neptune = ephem.Neptune(date)
-            update.message.reply_text(text)
+            update.message.reply_text(ephem.constellation(neptune))
         if user_text == 'Pluto':
             pluto = ephem.Pluto(date)
-            update.message.reply_text(text)
-        if user_text == 'Mars':
-            mars = ephem.Mars(date)
-            update.message.reply_text(text)
-            
-#print(ephem.constellation(planet_obj)) # отвечаем пользователю
+            update.message.reply_text(ephem.constellation(pluto))
+
 
 def main():                            # функция которая отвечает за работу бота
     mybot = Updater("1651502970:AAGSevR0qEcJqPh523rv-10fxT-ayFS8mL0", request_kwargs=PROXY, use_context=True) # ключ, настройки прокси
 
     dp = mybot.dispatcher # функция подключения к telegram
-    dp.add_handler(CommandHandler("start", "planet", greet_user, ask_planet)) #вызов функции
+    dp.add_handler(CommandHandler("start", greet_user)) #вызов функции
+    dp.add_handler(CommandHandler("planet", ask_planet))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me)) # бот реагирует только на текстовые сообщения
 
     mybot.start_polling()
